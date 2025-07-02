@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Domain model representing a Person.
  */
-public class Person {
+public class PersonDomain {
 
     private final Long id;
     private final String firstName;
@@ -17,7 +17,17 @@ public class Person {
     private final String taxId;
     private final BigDecimal taxDebt;
 
-    public Person(Long id, String firstName, String lastName, LocalDate dateOfBirth, String taxId, BigDecimal taxDebt) {
+    /**
+     * Instantiates a new Person domain.
+     *
+     * @param id          the id
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param dateOfBirth the date of birth
+     * @param taxId       the tax id
+     * @param taxDebt     the tax debt
+     */
+    public PersonDomain(Long id, String firstName, String lastName, LocalDate dateOfBirth, String taxId, BigDecimal taxDebt) {
         if (firstName == null || firstName.isBlank()) {
             throw new IllegalArgumentException("First name is required.");
         }
@@ -39,45 +49,85 @@ public class Person {
         this.taxDebt = taxDebt;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Gets last name.
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Gets date of birth.
+     *
+     * @return the date of birth
+     */
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
+    /**
+     * Gets tax id.
+     *
+     * @return the tax id
+     */
     public String getTaxId() {
         return taxId;
     }
 
+    /**
+     * Gets tax debt.
+     *
+     * @return the tax debt
+     */
     public BigDecimal getTaxDebt() {
         return taxDebt;
     }
 
+    /**
+     * Gets age.
+     *
+     * @return the age
+     */
     public int getAge() {
         return Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 
-    public Person withUpdatedDebt(BigDecimal newDebt) {
-        return new Person(this.id, this.firstName, this.lastName, this.dateOfBirth, this.taxId, newDebt);
+    /**
+     * With updated debt person domain.
+     *
+     * @param newDebt the new debt
+     * @return the person domain
+     */
+    public PersonDomain withUpdatedDebt(BigDecimal newDebt) {
+        return new PersonDomain(this.id, this.firstName, this.lastName, this.dateOfBirth, this.taxId, newDebt);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Person)) return false;
-        Person person = (Person) o;
-        return Objects.equals(id, person.id) &&
-                Objects.equals(taxId, person.taxId);
+        if (!(o instanceof PersonDomain personDomain)) return false;
+        return Objects.equals(id, personDomain.id) &&
+                Objects.equals(taxId, personDomain.taxId);
     }
 
     @Override

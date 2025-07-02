@@ -8,22 +8,24 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/** The type Person out dto. */
+/**
+ * The type Person out dto.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class PersonOutDTO {
 
-  private Long id;
+    private Long id;
 
-  private String firstName;
+    private String firstName;
 
-  private String lastName;
+    private String lastName;
 
-  private LocalDate dateOfBirth;
+    private LocalDate dateOfBirth;
 
-  private String taxId;
+    private String taxId;
 
-  private BigDecimal taxDebt;
+    private BigDecimal taxDebt;
 }

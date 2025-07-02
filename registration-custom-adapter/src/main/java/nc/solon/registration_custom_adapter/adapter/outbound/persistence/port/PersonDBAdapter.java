@@ -4,13 +4,16 @@ import lombok.RequiredArgsConstructor;
 import nc.solon.registration_custom_adapter.adapter.mapper.PersonMapper;
 import nc.solon.registration_custom_adapter.adapter.outbound.persistence.entity.PersonEntity;
 import nc.solon.registration_custom_adapter.adapter.outbound.persistence.repository.PersonRepository;
-import nc.solon.registration_custom_adapter.domain.Person;
+import nc.solon.registration_custom_adapter.domain.PersonDomain;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * The type Person db adapter.
+ */
 @Component
 @RequiredArgsConstructor
 public class PersonDBAdapter implements PersonPort {
@@ -19,26 +22,28 @@ public class PersonDBAdapter implements PersonPort {
     private final PersonMapper personMapper;
 
     @Override
-    public Person save(Person person) {
-        PersonEntity entity = personMapper.toEntity(person);
+    public PersonDomain create(PersonDomain personDomain) {
+        PersonEntity entity = personMapper.domainToEntity(personDomain);
         PersonEntity saved = personRepository.save(entity);
-        return personMapper.toDomain(saved);
+        return personMapper.entityToDomain(saved);
     }
 
     @Override
-    public Optional<Person> findById(Long id) {
-        return personRepository.findById(id).map(personMapper::toDomain);
+    public PersonDomain update(PersonDomain personDomain) {
+        PersonEntity entity = personMapper.domainToEntity(personDomain);
+        PersonEntity saved = personRepository.save(entity);
+        return personMapper.entityToDomain(saved);
     }
 
     @Override
-    public Optional<Person> findByTaxId(String taxId) {
-        return personRepository.findByTaxId(taxId).map(personMapper::toDomain);
+    public Optional<PersonDomain> findById(Long id) {
+        return personRepository.findById(id).map(personMapper::entityToDomain);
     }
 
     @Override
-    public List<Person> findAll() {
+    public List<PersonDomain> findAll() {
         return personRepository.findAll().stream()
-                .map(personMapper::toDomain)
+                .map(personMapper::entityToDomain)
                 .collect(Collectors.toList());
     }
 
