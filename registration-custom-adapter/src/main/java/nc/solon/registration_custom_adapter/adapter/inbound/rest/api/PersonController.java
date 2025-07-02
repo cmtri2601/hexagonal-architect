@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import nc.solon.registration_custom_adapter.adapter.inbound.rest.dto.PersonInDTO;
 import nc.solon.registration_custom_adapter.adapter.inbound.rest.dto.PersonOutDTO;
 import nc.solon.registration_custom_adapter.adapter.mapper.PersonMapper;
+import nc.solon.registration_custom_adapter.domain.PaginationRequest;
 import nc.solon.registration_custom_adapter.domain.PersonDomain;
 import nc.solon.registration_custom_adapter.service.PersonService;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +35,12 @@ public class PersonController implements PersonApi {
     }
 
     @Override
-    public ResponseEntity<List<PersonOutDTO>> getAllPersons() {
-        List<PersonOutDTO> personOutDTO = personMapper.domainToDto(personService.getAll());
+    public ResponseEntity<List<PersonOutDTO>> search(int page, int size, String direction) {
+        List<PersonDomain> domains = personService.search(new PaginationRequest(page, size, direction));
+        List<PersonOutDTO> personOutDTO = personMapper.domainToDto(domains);
         return ResponseEntity.ok(personOutDTO);
     }
+
 
     @Override
     public ResponseEntity<PersonOutDTO> updatePerson(Long id, PersonInDTO personInDTO) {

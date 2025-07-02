@@ -1,5 +1,6 @@
 package nc.solon.registration_custom_adapter.service;
 
+import nc.solon.registration_custom_adapter.domain.PaginationRequest;
 import nc.solon.registration_custom_adapter.domain.PersonDomain;
 
 import java.util.List;
@@ -25,11 +26,11 @@ public interface PersonService {
     PersonDomain getById(Long id);
 
     /**
-     * Gets all.
+     * Search .
      *
-     * @return the all
+     * @return search result
      */
-    List<PersonDomain> getAll();
+    List<PersonDomain> search(PaginationRequest paginationRequest);
 
     /**
      * Update person domain.

@@ -2,6 +2,7 @@ package nc.solon.registration_custom_adapter.service;
 
 import lombok.RequiredArgsConstructor;
 import nc.solon.registration_custom_adapter.adapter.outbound.persistence.port.PersonPort;
+import nc.solon.registration_custom_adapter.domain.PaginationRequest;
 import nc.solon.registration_custom_adapter.domain.PersonDomain;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +42,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonDomain> getAll() {
-        return personPort.findAll();
+    public List<PersonDomain> search(PaginationRequest paginationRequest) {
+        return personPort.search(paginationRequest);
     }
 
     @Override

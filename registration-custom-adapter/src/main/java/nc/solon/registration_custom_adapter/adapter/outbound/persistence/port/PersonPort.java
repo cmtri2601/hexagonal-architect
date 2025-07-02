@@ -1,5 +1,6 @@
 package nc.solon.registration_custom_adapter.adapter.outbound.persistence.port;
 
+import nc.solon.registration_custom_adapter.domain.PaginationRequest;
 import nc.solon.registration_custom_adapter.domain.PersonDomain;
 
 import java.util.List;
@@ -34,11 +35,12 @@ public interface PersonPort {
     Optional<PersonDomain> findById(Long id);
 
     /**
-     * Find all list.
+     * Search.
      *
      * @return the list
      */
-    List<PersonDomain> findAll();
+    List<PersonDomain> search(PaginationRequest paginationRequest);
+
 
     /**
      * Delete by id.

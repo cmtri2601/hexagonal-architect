@@ -31,12 +31,14 @@ public interface PersonApi {
     ResponseEntity<PersonOutDTO> getPersonById(@PathVariable Long id);
 
     /**
-     * Gets all persons.
+     * Search persons.
      *
-     * @return the all persons
+     * @return the searched persons
      */
-    @GetMapping
-    ResponseEntity<List<PersonOutDTO>> getAllPersons();
+    @GetMapping()
+    ResponseEntity<List<PersonOutDTO>> search(@RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size,
+                                              @RequestParam(defaultValue = "asc") String sort);
 
     /**
      * Update person response entity.
